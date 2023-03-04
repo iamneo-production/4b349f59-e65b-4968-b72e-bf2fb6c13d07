@@ -1,3 +1,5 @@
+const Colors = window.kurkle
+
 const ctx = document.getElementById("chart").getContext("2d")
 
 const lineButton = document.getElementById("line-graph-btn")
@@ -5,6 +7,18 @@ const barButton = document.getElementById("bar-graph-btn")
 
 const areaButtonsDiv = document.getElementById("areas-div")
 
+
+const COLORS = [
+    '#4dc9f6',
+    '#f67019',
+    '#f53794',
+    '#537bc4',
+    '#acc236',
+    '#166a8f',
+    '#00a950',
+    '#58595b',
+    '#8549ba'
+];
 
 const DATA_COUNT = 12;
 const labels = [
@@ -33,7 +47,7 @@ const data = {
     //         cubicInterpolationMode: 'monotone',
     //         tension: 0.4,
     //         backgroundColor: "#ffe4e4",
-            
+
     //     },
     //     {
     //         label: 'Area 2',
@@ -87,19 +101,19 @@ const init = async () => {
     const toggleButtons = []
     const api_data = await fetch("/aqi")
     const api_data_json = await api_data.json()
-    
+
     for (const [index, [district, values]] of Object.entries(Object.entries(api_data_json))) {
-        
+
         data.datasets.push(
-        {
-            label: district,
-            data: values,
-            borderColor: "#000",
-            fill: false,
-            cubicInterpolationMode: 'monotone',
-            tension: 0.4,
-            opacity:0.3,
-        },
+            {
+                label: district,
+                data: values,
+                borderColor: COLORS[index],
+                fill: false,
+                cubicInterpolationMode: 'monotone',
+                tension: 0.4,
+                opacity: 0.3,
+            },
         )
         const divElement = document.createElement("button")
         divElement.className = "border-2 px-4 py-2 rounded-full toggle-line-btn active-btn hover:shadow-md duration-200 ease-linear"
@@ -112,25 +126,26 @@ const init = async () => {
         )
 
         toggleButtons.push(divElement)
-        for (const btn of toggleButtons) {
-            btn.addEventListener("click", e => {
-        
-                const areaNo = btn.dataset.area
-        
-                if (btn.classList.contains("active-btn")) {
-                    
-                    chart.hide(Number(areaNo))
-                    btn.classList.remove("active-btn")
-        
-        
-                } else {
-                    
-                    chart.show(Number(areaNo))
-                    btn.classList.add("active-btn")
-                
-                }
-            })
-        }
+    }
+    for (const btn of toggleButtons) {
+        btn.addEventListener("click", e => {
+
+            const areaNo = btn.dataset.area
+            console.log(areaNo)
+
+            if (btn.classList.contains("active-btn")) {
+
+                chart.hide(Number(areaNo))
+                btn.classList.remove("active-btn")
+
+
+            } else {
+
+                chart.show(Number(areaNo))
+                btn.classList.add("active-btn")
+
+            }
+        })
     }
 
     chart.update()
