@@ -1,3 +1,5 @@
+from typing import Optional
+
 import uvicorn
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
@@ -25,8 +27,6 @@ async def startup_event() -> None:
         aqi_forecast[district] = model.forecast(12).tolist()
 
 
-    print(aqi_forecast)
-
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
     template_name = "home.html"
@@ -39,8 +39,11 @@ def read_root(request: Request):
 
 
 @app.get("/aqi", response_class=JSONResponse)
-def aqi_data(request: Request):
-    return aqi_forecast
+def aqi_data(request: Request, district: Optional[str] = None):
+    if not district:
+        return aqi_forecast
+    
+    return aqi_forecast[district]
 
 
 if __name__ == "__main__":

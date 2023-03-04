@@ -6,6 +6,7 @@ const lineButton = document.getElementById("line-graph-btn")
 const barButton = document.getElementById("bar-graph-btn")
 
 const areaButtonsDiv = document.getElementById("areas-div")
+const toggleButtons = []
 
 const ALPHA = 0.6
 const COLORS = [
@@ -75,8 +76,8 @@ const config = {
                     display: true,
                     text: 'AQI'
                 },
-                suggestedMin: 0,
-                suggestedMax: 250
+                suggestedMin: 30,
+                suggestedMax: 120
             }
         }
     },
@@ -85,12 +86,19 @@ const config = {
 const chart = new Chart(ctx, config)
 
 const init = async () => {
-    const toggleButtons = []
     const api_data = await fetch("/aqi")
     const api_data_json = await api_data.json()
+    let max = null
+    let min = null
 
     for (const [index, [district, values]] of Object.entries(Object.entries(api_data_json))) {
+        values.forEach(val => {
+            if (!max) max = val
+            if (!min) min = val
 
+            if (val > max) max = val
+            else if (val < min) min = val
+        })
         data.datasets.push(
             {
                 label: district,
@@ -136,11 +144,20 @@ const init = async () => {
         })
     }
 
+    
+    config.options.scales.y.suggestedMax = Math.round(max) + 10
+    config.options.scales.y.suggestedMin= Math.round(min) - 10
     chart.update()
 }
 
 init()
 
+
+const activeReset = () => {
+    for (const btn of toggleButtons) {
+        btn.classList.add("active-btn")
+    }
+}
 
 lineButton.addEventListener("click", e => {
     config.type = "line"
@@ -148,6 +165,8 @@ lineButton.addEventListener("click", e => {
 
     lineButton.classList.add("active-btn")
     barButton.classList.remove("active-btn")
+
+    activeReset()
 })
 
 barButton.addEventListener("click", e => {
@@ -156,4 +175,6 @@ barButton.addEventListener("click", e => {
 
     barButton.classList.add("active-btn")
     lineButton.classList.remove("active-btn")
+
+    activeReset()
 })

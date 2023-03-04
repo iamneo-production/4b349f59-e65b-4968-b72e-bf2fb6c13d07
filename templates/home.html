@@ -48,6 +48,44 @@
     </div>
   </div>
 </section>
+
+<section id="aqi" class="bg-body-secondary py-20">
+  <div class="w-3/5 mx-auto">
+    <div>
+      <h3>Temperature and Heatwave Prediction for Telangana Districts 2023</h3>
+
+      <div class="flex justify-between items-center">
+        <div class="flex flex-col justify-start items-start gap-5 my-2">
+
+          <small class="mx-2">Areas Selceted:</small>
+          <div id="areas-div-heatwave" class="flex justify-start items-center gap-5 my-2">
+          </div>
+
+        </div>
+
+        <div class="flex flex-col justify-start items-start gap-5 my-2">
+          <small class="mx-2">Graph Type:</small>
+
+          <div class="flex justify-start items-center gap-5 my-2">
+
+            <button id="line-graph-btn-heatwave"
+              class="border-2 px-4 py-2 rounded-full active-btn hover:shadow-md duration-200 ease-linear"
+              data-area="0">Line</button>
+
+            <button id="bar-graph-btn-heatwave" class="border-2 px-4 py-2 rounded-full hover:shadow-md duration-200 ease-linear"
+              data-area="1">Bar</button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div>
+      <canvas id="chart-heatwave"></canvas>
+    </div>
+  </div>
+</section>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
 <script src="{{ url_for('static', path='js/plot.js') }}" type="module"></script>
+<script src="{{ url_for('static', path='js/heatwave.js') }}" type="module"></script>
 {% endblock %}
