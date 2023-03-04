@@ -3,6 +3,8 @@ from pathlib import Path
 from statsmodels.tsa.arima.model import ARIMAResultsWrapper
 from statsmodels.iolib.smpickle import load_pickle
 
+import csv
+
 
 DISTRICTS = (
     "Khammam",
@@ -46,9 +48,13 @@ def load_district_data_pred():
     data = {}
     pickles_path = Path("src", "model", "pickles")
     for district in DISTRICTS:
-        d_path = pickles_path.joinpath(f"pred-{district}")
+        d_path = pickles_path.joinpath(f"pred{district}")
         
+
         if d_path.exists():
-            data[district] = _unpickle_model(d_path.absolute())
+            with d_path.open() as f:
+                data[district] = [row["Severe_heat_wave_prediction"] for row in csv.DictReader(f)]
+                
+                
 
     return data

@@ -33,8 +33,9 @@ async def startup_event() -> None:
     for district, model in models['avg_temp'].items():
         avg_temp_forecast[district] = model.forecast(92+365)[92:].tolist()
 
-    for district, model in models['pred'].items():
-        pred[district] = model.forecast(92+365)[92:].tolist()
+    # for district, csv in models['pred'].items():
+    #     pred[district] = [row.Normal_heat_wave_prediction for row in csv]
+    
 
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
@@ -64,9 +65,9 @@ def aqi_data(request: Request, district: Optional[str] = None):
 @app.get("/pred", response_class=JSONResponse)
 def aqi_data(request: Request, district: Optional[str] = None):
     if not district:
-        return pred
+        return models["pred"]
     
-    return pred[district]
+    return models["pred"]
 
 
 if __name__ == "__main__":
