@@ -7,18 +7,26 @@ const barButton = document.getElementById("bar-graph-btn")
 
 const areaButtonsDiv = document.getElementById("areas-div")
 
-
+const ALPHA = 0.6
 const COLORS = [
-    '#4dc9f6',
-    '#f67019',
-    '#f53794',
-    '#537bc4',
-    '#acc236',
-    '#166a8f',
-    '#00a950',
-    '#58595b',
-    '#8549ba'
-];
+    'rgb(255, 99, 132)',
+    'rgb(255, 159, 64)',
+    'rgb(255, 205, 86)',
+    'rgb(75, 192, 192)',
+    'rgb(54, 162, 235)',
+    'rgb(153, 102, 255)',
+    'rgb(201, 203, 207)'
+]
+
+const COLORS_A = [
+    `rgba(255, 99, 132, ${ALPHA})`,
+    `rgba(255, 159, 64, ${ALPHA})`,
+    `rgba(255, 205, 86, ${ALPHA})`,
+    `rgba(75, 192, 192, ${ALPHA})`,
+    `rgba(54, 162, 235, ${ALPHA})`,
+    `rgba(153, 102, 255, ${ALPHA})`,
+    `rgba(201, 203, 207, ${ALPHA})`
+]
 
 const DATA_COUNT = 12;
 const labels = [
@@ -109,6 +117,7 @@ const init = async () => {
                 label: district,
                 data: values,
                 borderColor: COLORS[index],
+                backgroundColor: COLORS_A[index],
                 fill: false,
                 cubicInterpolationMode: 'monotone',
                 tension: 0.4,
