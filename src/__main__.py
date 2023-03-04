@@ -13,6 +13,9 @@ app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 
+@app.on_event("startup")
+
+
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
     template_name = "home.html"
@@ -32,4 +35,4 @@ def aqi_data(request: Request):
 
 
 if __name__ == "__main__":
-    uvicorn.run("src.__main__:app", reload=True)
+    uvicorn.run("src.__main__:app", reload=True, host="0.0.0.0", port=8080, forwarded_allow_ips="*")
