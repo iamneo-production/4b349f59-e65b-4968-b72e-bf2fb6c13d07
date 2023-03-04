@@ -34,9 +34,7 @@ async def startup_event() -> None:
         avg_temp_forecast[district] = model.forecast(92+365)[92:].tolist()
 
     for district, model in models['pred'].items():
-        pred[district] = model.forecast(92+365)[92:]
-        print(model.forecast(92+365)[92:].tolist())
-        break
+        pred[district] = model.forecast(92+365)[92:].tolist()
 
 @app.get("/", response_class=HTMLResponse)
 def read_root(request: Request):
