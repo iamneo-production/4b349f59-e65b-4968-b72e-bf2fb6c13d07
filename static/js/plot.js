@@ -46,27 +46,6 @@ const labels = [
 const data = {
     labels: labels,
     datasets: []
-    // datasets: [
-    //     {
-    //         label: 'Area 1',
-    //         data: data1,
-    //         borderColor: "#ff647a",
-    //         fill: false,
-    //         cubicInterpolationMode: 'monotone',
-    //         tension: 0.4,
-    //         backgroundColor: "#ffe4e4",
-
-    //     },
-    //     {
-    //         label: 'Area 2',
-    //         data: data2,
-    //         borderColor: "#000",
-    //         fill: false,
-    //         cubicInterpolationMode: 'monotone',
-    //         tension: 0.4,
-    //         opacity:0.3,
-    //     },
-    // ]
 };
 
 const config = {
