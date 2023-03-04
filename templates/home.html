@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% block title %}Index{% endblock %}
+{% block head %}
+{{ super() }}
+
+{% endblock %}
+{% block content %}
+<main class="text-center py-20">
+  <h1 class="text-text">AQI and HeatWave Prediction</h1>
+  <p class="w-3/5 mx-auto my-10">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique aperiam et
+    voluptatibus voluptate, facilis numquam velit totam ut cupiditate accusamus magnam nobis corporis ratione explicabo
+    accusantium adipisci nihil dolor iusto. Lorem ipsum dolor sit amet consectetur, adipisicing elit. Animi accusamus
+    quas blanditiis quae et iure ipsum sunt. Dolores sit recusandae labore sunt commodi quam. Nulla corporis laboriosam
+    hic alias ipsum!</p>
+</main>
+<section class="bg-body-secondary py-20">
+  <div class="w-3/5 mx-auto">
+    <div>
+      <h3>AQI Prediction for Telangana Districts 2023</h3>
+
+      <div class="flex justify-between items-center">
+        <div class="flex flex-col justify-start items-start gap-5 my-2">
+
+          <small class="mx-2">Areas Selceted:</small>
+          <div class="flex justify-start items-center gap-5 my-2">
+            <button
+              class="border-2 px-4 py-2 rounded-full toggle-line-btn active-btn hover:shadow-md duration-200 ease-linear"
+              data-area="0">Area 1</button>
+
+            <button
+              class="border-2 px-4 py-2 rounded-full toggle-line-btn active-btn hover:shadow-md duration-200 ease-linear"
+              data-area="1">Area 2</button>
+          </div>
+
+        </div>
+
+        <div class="flex flex-col justify-start items-start gap-5 my-2">
+          <small class="mx-2">Graph Type:</small>
+
+          <div class="flex justify-start items-center gap-5 my-2">
+
+            <button id="line-graph-btn"
+              class="border-2 px-4 py-2 rounded-full active-btn hover:shadow-md duration-200 ease-linear"
+              data-area="0">Line</button>
+
+            <button id="bar-graph-btn" class="border-2 px-4 py-2 rounded-full hover:shadow-md duration-200 ease-linear"
+              data-area="1">Bar</button>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div>
+      <canvas id="chart"></canvas>
+    </div>
+  </div>
+</section>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.2.1/dist/chart.umd.min.js"></script>
+<script src="{{ url_for('static', path='js/plot.js') }}" type="module"></script>
+{% endblock %}
