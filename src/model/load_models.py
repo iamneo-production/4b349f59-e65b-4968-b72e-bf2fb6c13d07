@@ -29,3 +29,14 @@ def load_district_data():
             data[district] = _unpickle_model(d_path.absolute())
 
     return data
+
+def load_district_data_temp():
+    data = {}
+    pickles_path = Path("src", "model", "pickles")
+    for district in DISTRICTS:
+        d_path = pickles_path.joinpath(f"temp-{district}")
+        
+        if d_path.exists():
+            data[district] = _unpickle_model(d_path.absolute())
+
+    return data

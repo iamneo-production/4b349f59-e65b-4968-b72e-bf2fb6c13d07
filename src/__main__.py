@@ -6,7 +6,7 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 
-from src.model import load_district_data
+from src.model import load_district_data, load_district_data_temp
 
 app = FastAPI()
 
@@ -17,14 +17,22 @@ templates = Jinja2Templates(directory="templates")
 
 models = {}
 aqi_forecast = {}
+avg_temp_forecast = {}
 
 @app.on_event("startup")
 async def startup_event() -> None:
     print("startup")
     models["aqi"] = load_district_data()
+    models["avg_temp"] = load_district_data_temp()
 
     for district, model in models['aqi'].items():
         aqi_forecast[district] = model.forecast(12).tolist()
+
+    for district, model in models['avg_temp'].items():
+        avg_temp_forecast[district] = model.forecast(92+365)[92:].tolist()
+
+
+
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -44,6 +52,13 @@ def aqi_data(request: Request, district: Optional[str] = None):
         return aqi_forecast
     
     return aqi_forecast[district]
+
+@app.get("/avg_temp", response_class=JSONResponse)
+def aqi_data(request: Request, district: Optional[str] = None):
+    if not district:
+        return avg_temp_forecast
+    
+    return avg_temp_forecast[district]
 
 
 if __name__ == "__main__":
