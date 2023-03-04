@@ -80,7 +80,7 @@ const config = {
                 display: true,
                 title: {
                     display: true,
-                    text: 'AQI'
+                    text: 'Max Temperature'
                 },
                 suggestedMin: 30,
                 suggestedMax: 120
