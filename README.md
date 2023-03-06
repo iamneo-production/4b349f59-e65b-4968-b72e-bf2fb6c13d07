@@ -18,4 +18,12 @@ yarn build
 cd ..
 python -m src
 ```
+
+## Running jupyter notebook
+This might require global installation of `jupyter` package if you are using virtualenv.
+You can achive the above by `pip install jupyter` outside the virtualenv.
+```
+cd src/model
+jupyter notebook
+```
 - go to localhost:8080
