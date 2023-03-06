@@ -3,7 +3,12 @@ https://sonarcloud.io/summary/overall?id=examly-test_4b349f59-e65b-4968-b72e-bf2
 
 
 ## Run the project
-
-- pip install -r requirements.txt
-- python -m src
+```
+pip install -r requirements.txt
+cd tailwind
+yarn
+yarn build
+cd ..
+python -m src
+```
 - go to localhost:8080
